@@ -44,6 +44,13 @@
     height: 34px;
     background: #FFFFFF;
     border-radius: 15px;
+    font-family: 'Oxygen';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 30px;
+    color: #000000;
+    padding-left: 8px;
 }
 
 .labels {

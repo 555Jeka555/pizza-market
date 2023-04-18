@@ -5,7 +5,7 @@ namespace App\Model;
 
 class Upload {
 
-    private const UPLOADS_PATH = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "public" . DIRECTORY_SEPARATOR . "uploads";
+    private const UPLOADS_PATH = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "public" . DIRECTORY_SEPARATOR . "uploads" . DIRECTORY_SEPARATOR . "avatars";
 
     private const ALLOWED_MIME_TYPES_MAP = [
         "image/jpeg" => ".jpg",
@@ -14,7 +14,6 @@ class Upload {
     ];
 
     public function __construct(){
-        
     }
 
     public function moveImageToUploads(array $fileInfo): string
@@ -47,7 +46,7 @@ class Upload {
 
     public function getUploadUrlPath(string $fileName): string
     {
-        return "/uploads/$fileName";
+        return "/uploads/avatars/$fileName";
     }
 
     public function moveFileToUploads(array $fileInfo, string $destFileName): string

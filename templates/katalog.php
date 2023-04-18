@@ -21,27 +21,37 @@
         </div>
         <div class="user">
             <div class="user__naming">
-                <p>Антышев Е.</p>
-                <p>2003antyshev@mail.ru</p>
+                <p class="user__naming_overflow"><?= htmlentities($user->getSecondName() . " " . htmlentities($user->getFirstName())) ?></p>
+                <p class="user__naming_overflow"><?= htmlentities($user->getEmail()) ?></p>
             </div>
-            <img src="/uploads/images/camera.png" alt="camera">
+            <?php if ($user->getAvatarPath() !== null) : ?>
+                <img class="user__avatar_size" src="/uploads/avatars/<?= htmlentities($user->getAvatarPath()) ?>" alt="<?= htmlentities($user->getAvatarPath()) ?>">
+            <?php else : ?>
+                <img class="user__avatar_size" src="/uploads/images/camera.png" alt="camera">
+            <?php endif; ?>
         </div>
     </header>
     <main class="main__display">
         <h2 class="subtitle">Ассортимент</h2>
         <div class="assortiment">
-            <div class="card">
-                <img class="card__img" src="/uploads/images/chiken-ranch.png" alt="chiken-ranch">
-                <p class="card__title">Цыпленок</p>
-                <p class="card__subtitle">Цыпленок, ветчина, соус ранч, моцарелла, чеснок</p>
-                <div class="card__order">
-                    <div class="card__prices">
-                        <p class="card__price">461 ₽</p>
-                        <p class="card__last-price ">549 ₽</p>
+            <?php foreach ($pizzas as $pizza) : ?>
+                <div class="card">
+                    <div>
+                        <img class="card__img" src="/uploads/images/<?= htmlentities($pizza->getPizzaImgPath()) ?>" alt="<?= htmlentities($pizza->getPizzaImgPath()) ?>">
+                        <p class="card__title"><?= htmlentities($pizza->getTitle()) ?></p>
+                        <p class="card__subtitle"><?= htmlentities($pizza->getSubTitle()) ?></p>
                     </div>
-                    <button class="card__buy">Купить</button>
+                    <div class="card__order">
+                        <div class="card__prices">
+                            <p class="card__price"><?= htmlentities($pizza->getPrice() . " ₽") ?></p>
+                            <?php if ($pizza->getLastPrice() !== null) : ?>
+                                <p class="card__last-price "><?= htmlentities($pizza->getLastPrice() . " ₽") ?></p>
+                            <?php endif; ?>
+                        </div>
+                        <button class="card__buy">Купить</button>
+                    </div>
                 </div>
-            </div>
+            <?php endforeach; ?>
         </div>
     </main>
     <footer class="footer__background">

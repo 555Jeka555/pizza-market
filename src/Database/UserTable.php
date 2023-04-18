@@ -62,7 +62,7 @@ class UserTable
         SQL;
     
         $statement = $this->connection->query($query);
-        if ($rows = $statement->fetch(\PDO::FETCH_ASSOC))
+        if ($rows = $statement->fetchAll(\PDO::FETCH_ASSOC))
         {
             foreach ($rows as $row)
             {

@@ -34,7 +34,18 @@ class UserController extends AbstractController
 
     public function registerUser(Request $request): Response
     {
-        $illustrationPath = $this->upload->moveImageToUploads($_FILES["avatar_path"]);
+        $illustrationPath = null;
+        if ($_FILES["avatar_path"] !== null)
+        {
+            $illustrationPath = $this->upload->moveImageToUploads($_FILES["avatar_path"]);
+        }
+
+        if (!$this->validForm($request))
+        {
+            $contents = PhpTemplateEngine::render("register.php");
+            return new Response($contents);
+        }
+        
         $user = new User(
             null, $request->get("first_name"), $request->get("second_name"),
             $request->get("email"), (int)$request->get("phone"), $illustrationPath
@@ -58,16 +69,34 @@ class UserController extends AbstractController
 
         $storefrontController = new StorefrontController();
         
-        $contents = PhpTemplateEngine::render("katalog.php", [
-            "user" => $user
-        ]);
-        return new Response($contents);
-        // return $storefrontController->index($user);
+        // $contents = PhpTemplateEngine::render("katalog.php", [
+        //     "user" => $user
+        // ]);
+        // return new Response($contents);
+        return $storefrontController->index($user);
     }
 
-    // private function writeRedirectSeeOther(string $url): void
-    // {
-    //     header("Location: " . $url, true, self::HTTP_STATUS_303_SEE_OTHER);
-    // }
+    private function validForm(Request $request): bool
+    {
+        if ($request->get("email") !== null)
+        {
+            $email = $request->get("email");
+            $email_validation_regex = "/^\\S+@\\S+\\.\\S+$/"; 
+            if (!(preg_match($email_validation_regex, $email))) 
+            {
+                return false;
+            }
+        }
+        if ($request->get("phone") !== null)
+        {
+            $phone = $request->get("phone");
+            if (!is_numeric($phone)) 
+            {
+                return false;
+            }            
+        }
+
+        return true;
+    }
 
 }

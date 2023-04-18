@@ -8,10 +8,10 @@ class User {
     private string $second_name;
 	private string $email;
 	private int $phone;
-	private string $avatar_path;
+	private string|null $avatar_path;
 
     public function __construct(?int $userId, string $first_name, string $second_name,
-        string $email, int $phone, string $avatar_path)
+        string $email, int $phone, string|null $avatar_path)
     {
         $this->userId = $userId;
         $this->first_name = $first_name;
@@ -46,7 +46,7 @@ class User {
         return $this->phone;
    }
 
-   public function getAvatarPath(): string
+   public function getAvatarPath(): string|null
    {
        return $this->avatar_path;
    }

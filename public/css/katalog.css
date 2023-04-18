@@ -35,6 +35,20 @@
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
+.user__naming_overflow {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px
+}
+
+.user__avatar_size{
+    width: 76px;
+    height: 76px;
+    background: #FFFFFF;
+    border-radius: 90px;
+}
+
 .main__display {
     display: flex;
     flex-direction: column;
@@ -56,11 +70,16 @@
     display: flex;
     justify-content: center;
     flex-flow: wrap;
+    width: 60%;
+    gap: 20px;
 }
 
 .card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     max-width: 220px;
-    max-height: 425px;
+    max-height: 525px;
     background: #FFFFFF;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     padding: 0 18px 0 18px;
