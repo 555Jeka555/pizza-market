@@ -1,0 +1,52 @@
+{% extends "base.html.twig" %}
+{% block doctype %}
+<head>
+    {% block stylesheets  %}
+        {{ parent() }}
+    {% endblock %}
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    <header class="header__background">
+        {% block header %}
+            {{ parent() }}
+            <div class="user">
+            <div class="user__naming">
+                <p class="user__naming_overflow">{{ user.getSecondName() ~ " " ~ user.getFirstName() }}</p>
+                <p class="user__naming_overflow">{{ user.getEmail() }}</p>
+            </div>
+            {% if user.getAvatarPath() is null %}
+                <img class="user__avatar_size" src="/uploads/images/camera.png" alt="camera">
+            {% else %}
+                <img class="user__avatar_size" src="/uploads/avatars/{{ user.getAvatarPath() }}" alt="{{ user.getAvatarPath() }}">
+            {% endif %}
+        {% endblock %}
+    </header>
+    <main class="main__display">
+        <h2 class="subtitle">Ассортимент</h2>
+        <div class="assortiment">
+            {% for pizza in pizzas %}
+                <div class="card">
+                    <div>
+                        <img class="card__img" src="/uploads/images/{{ pizza.getPizzaImgPath() }}" alt="{{ pizza.getPizzaImgPath() }}">
+                        <p class="card__title">{{ pizza.getTitle() }}</p>
+                        <p class="card__subtitle">{{ pizza.getSubTitle() }}</p>
+                    </div>
+                    <div class="card__order">
+                        <div class="card__prices">
+                            <p class="card__price">{{ pizza.getPrice() ~ " ₽" }}</p>
+                            {% if pizza.getLastPrice() is not null %}
+                                <p class="card__last-price">{{ pizza.getLastPrice() ~ " ₽" }}</p>
+                            {% endif %}
+                        </div>
+                        <button class="card__buy">Купить</button>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </main>
+    {% block footer %}
+        {{ parent() }}
+    {% endblock %}
+</body>
+{% endblock %}
