@@ -68,11 +68,7 @@ class UserController extends AbstractController
         }
 
         $storefrontController = new StorefrontController();
-        
-        // $contents = PhpTemplateEngine::render("katalog.php", [
-        //     "user" => $user
-        // ]);
-        // return new Response($contents);
+
         return $storefrontController->index($user);
     }
 

@@ -13,24 +13,29 @@ use App\View\PhpTemplateEngine;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
 
 class StorefrontController extends AbstractController
 {
     private UserTable $userTable;
     private Upload $upload;
+    private Environment $twig;
 
     public function __construct()
     {
         $connection = ConnectionProvider::connectDatabase();
         $this->userTable = new UserTable($connection);
         $this->upload = new Upload();
+        $this->twig = new Environment(new FilesystemLoader("../templates"));
     }
 
     public function index(User $user): Response
     {
         $pizzas = $this->userTable->getAllPizzas();
 
-        $contents = PhpTemplateEngine::render("katalog.php", [
+        $contents = $this->twig->render("katalog.html.twig", [
+            "title" => "Pizza-market",
             "user" => $user,
             "pizzas" => $pizzas
         ]);
