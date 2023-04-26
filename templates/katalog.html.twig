@@ -1,27 +1,26 @@
 {% extends "base.html.twig" %}
-{% block doctype %}
-<head>
+{% block head %}
     {% block stylesheets  %}
         {{ parent() }}
+        <link rel="stylesheet" href="/css/katalog.css">
     {% endblock %}
     <title>{% block title %}{% endblock %}</title>
-</head>
-<body>
-    <header class="header__background">
-        {% block header %}
-            {{ parent() }}
-            <div class="user">
-            <div class="user__naming">
-                <p class="user__naming_overflow">{{ user.getSecondName() ~ " " ~ user.getFirstName() }}</p>
-                <p class="user__naming_overflow">{{ user.getEmail() }}</p>
-            </div>
-            {% if user.getAvatarPath() is null %}
-                <img class="user__avatar_size" src="/uploads/images/camera.png" alt="camera">
-            {% else %}
-                <img class="user__avatar_size" src="/uploads/avatars/{{ user.getAvatarPath() }}" alt="{{ user.getAvatarPath() }}">
-            {% endif %}
-        {% endblock %}
-    </header>
+{% endblock %}
+{% block header %}
+    {{ parent() }}
+    <div class="user">
+        <div class="user__naming">
+            <p class="user__naming_overflow">{{ user.getSecondName() ~ " " ~ user.getFirstName() }}</p>
+            <p class="user__naming_overflow">{{ user.getEmail() }}</p>
+        </div>
+        {% if user.getAvatarPath() is null %}
+            <img class="user__avatar_size" src="/uploads/images/camera.png" alt="camera">
+        {% else %}
+            <img class="user__avatar_size" src="/uploads/avatars/{{ user.getAvatarPath() }}" alt="{{ user.getAvatarPath() }}">
+        {% endif %}
+    </div>
+{% endblock %}
+{% block content %}
     <main class="main__display">
         <h2 class="subtitle">Ассортимент</h2>
         <div class="assortiment">
@@ -45,8 +44,4 @@
             {% endfor %}
         </div>
     </main>
-    {% block footer %}
-        {{ parent() }}
-    {% endblock %}
-</body>
 {% endblock %}
