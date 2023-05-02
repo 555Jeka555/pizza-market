@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Database\ConnectionProvider;
-use App\Database\UserTable;
-use App\Model\User;
+use App\Entity\User;
 use App\Model\Upload;
+use App\Repository\UserRepository;
 use App\View\PhpTemplateEngine;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,15 +14,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends AbstractController
 {
-    // private const HTTP_STATUS_303_SEE_OTHER = 303;
-    private UserTable $userTable;
     private Upload $upload;
+    private UserRepository $userRepository;
 
-    public function __construct()
+    public function __construct(UserRepository $userRepository)
     {
-        $connection = ConnectionProvider::connectDatabase();
-        $this->userTable = new UserTable($connection);
         $this->upload = new Upload();
+        $this->userRepository = $userRepository;
     }
 
     public function index(): Response
@@ -48,28 +45,16 @@ class UserController extends AbstractController
         
         $user = new User(
             null, $request->get("first_name"), $request->get("second_name"),
-            $request->get("email"), (int)$request->get("phone"), $illustrationPath
+            $request->get("email"), $request->get("phone"), $illustrationPath
         );
 
-        $userId = $this->userTable->saveUser($user);
+        $userId = $this->userRepository->store($user);
         
         return $this->redirectToRoute(
             "show_katalog",
             ["userId" => $userId],
             Response::HTTP_SEE_OTHER
         );
-    }
-
-    public function viewKatalog(int $userId): Response
-    {
-        $user = $this->userTable->findUser($userId);
-        if (!$user) {
-            throw $this->createNotFoundException();
-        }
-
-        $storefrontController = new StorefrontController();
-
-        return $storefrontController->index($user);
     }
 
     private function validForm(Request $request): bool

@@ -4,35 +4,39 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Database\UserTable;
-use App\Database\ConnectionProvider;
-use App\Model\User;
-use App\Model\Pizza;
+use App\Entity\User;
 use App\Model\Upload;
-use App\View\PhpTemplateEngine;
+use App\Repository\PizzaRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
 class StorefrontController extends AbstractController
 {
-    private UserTable $userTable;
+    private PizzaRepository $pizzaRepository;
+    private UserRepository $userRepository;
     private Upload $upload;
     private Environment $twig;
 
-    public function __construct()
+    public function __construct(PizzaRepository $pizzaRepository, UserRepository $userRepository)
     {
-        $connection = ConnectionProvider::connectDatabase();
-        $this->userTable = new UserTable($connection);
+        $this->userRepository = $userRepository;
+        $this->pizzaRepository = $pizzaRepository;
         $this->upload = new Upload();
         $this->twig = new Environment(new FilesystemLoader("../templates"));
     }
 
-    public function index(User $user): Response
+    public function index(int $userId): Response
     {
-        $pizzas = $this->userTable->getAllPizzas();
+
+        $user = $this->userRepository->findById($userId);
+        if (!$user) {
+            throw $this->createNotFoundException();
+        }
+
+        $pizzas = $this->pizzaRepository->listAll();
 
         $contents = $this->twig->render("katalog.html.twig", [
             "title" => "Pizza-market",

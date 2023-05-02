@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Model;
+namespace App\Entity;
 
 class User {
-    private ?int $userId;
+    private ?int $user_id;
     private string $first_name;
     private string $second_name;
 	private string $email;
-	private int $phone;
+	private string|null $phone;
 	private string|null $avatar_path;
 
-    public function __construct(?int $userId, string $first_name, string $second_name,
-        string $email, int $phone, string|null $avatar_path)
+    public function __construct(?int $user_id, string $first_name, string $second_name,
+        string $email, string|null $phone, string|null $avatar_path)
     {
-        $this->userId = $userId;
+        $this->user_id = $user_id;
         $this->first_name = $first_name;
         $this->second_name = $second_name;
         $this->email = $email;
@@ -23,7 +23,7 @@ class User {
 
     public function getUserId(): ?int
     {
-       return $this->userId;
+       return $this->user_id;
     }
 
    public function getFirstName(): string
@@ -41,7 +41,7 @@ class User {
        return $this->email;
     }
 
-   public function getPhone(): int
+   public function getPhone(): string|null
    {
         return $this->phone;
    }

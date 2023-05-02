@@ -11,4 +11,4 @@ add_user:
 show_katalog:
     path: /user/{userId}
     methods: GET
-    controller: App\Controller\UserController::viewKatalog
+    controller: App\Controller\StorefrontController::index

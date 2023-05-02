@@ -2,31 +2,31 @@
 
 declare(strict_types=1);
 
-namespace App\Model;
+namespace App\Entity;
 
 class Pizza
 {
-    private ?int $pizzaId;
+    private ?int $pizza_id;
     private string $title;
     private string $subtitle;
     private int $price;
-    private int|null $lastPrice;
-    private string $pizzaImgPath;
+    private int|null $last_price;
+    private string|null $pizza_img_path;
 
-    public function __construct(?int $pizzaId, string $title, string $subtitle,
-        int $price, int|null $lastPrice, string $pizzaImgPath) 
+    public function __construct(?int $pizza_id, string $title, string $subtitle,
+        int $price, int|null $last_price, string|null $pizza_img_path) 
     {
-        $this->pizzaId = $pizzaId;
+        $this->pizza_id = $pizza_id;
         $this->title = $title;
         $this->subtitle = $subtitle;
         $this->price = $price;
-        $this->lastPrice = $lastPrice;
-        $this->pizzaImgPath = $pizzaImgPath;
+        $this->last_price = $last_price;
+        $this->pizza_img_path = $pizza_img_path;
     }
 
     public function getPizzaId(): ?int
     {
-        return $this->pizzaId;
+        return $this->pizza_id;
     }
 
     public function getTitle(): string
@@ -46,12 +46,12 @@ class Pizza
 
     public function getLastPrice(): int|null
     {
-        return $this->lastPrice;
+        return $this->last_price;
     }
 
-    public function getPizzaImgPath(): string
+    public function getPizzaImgPath(): string|null
     {
-        return $this->pizzaImgPath;
+        return $this->pizza_img_path;
     }
 
 }
