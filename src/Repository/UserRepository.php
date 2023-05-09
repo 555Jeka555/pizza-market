@@ -21,7 +21,7 @@ class UserRepository
 
     public function findById(int $id): ?User 
     {
-        return $this->repository->findOneBy(["user_id" => (string) $id]);
+        return $this->repository->findOneBy(["userId" => (string) $id]);
     }
 
     public function store(User $user): int

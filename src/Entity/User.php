@@ -1,39 +1,33 @@
 <?php
 
+declare(strict_types=1);
 namespace App\Entity;
 
-class User {
-    private ?int $user_id;
-    private string $first_name;
-    private string $second_name;
-	private string $email;
-	private string|null $phone;
-	private string|null $avatar_path;
+class User 
+{
 
-    public function __construct(?int $user_id, string $first_name, string $second_name,
-        string $email, string|null $phone, string|null $avatar_path)
-    {
-        $this->user_id = $user_id;
-        $this->first_name = $first_name;
-        $this->second_name = $second_name;
-        $this->email = $email;
-        $this->phone = $phone;
-        $this->avatar_path = $avatar_path;
-    }
+    public function __construct(
+        private ?int $userId,
+        private string $firstName, 
+        private string $secondName,
+        private string $email, 
+        private string|null $phone, 
+        private string|null $avatarPath)
+    {}
 
     public function getUserId(): ?int
     {
-       return $this->user_id;
+       return $this->userId;
     }
 
    public function getFirstName(): string
    {
-        return $this->first_name;
+        return $this->firstName;
    }
 
    public function getSecondName(): string
    {
-       return $this->second_name;
+       return $this->secondName;
    }
 
    public function getEmail(): string
@@ -48,7 +42,6 @@ class User {
 
    public function getAvatarPath(): string|null
    {
-       return $this->avatar_path;
+       return $this->avatarPath;
    }
-
 }

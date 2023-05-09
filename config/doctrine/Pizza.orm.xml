@@ -6,15 +6,15 @@
 
     <entity name="App\Entity\Pizza" table="pizza">
 
-        <id name="pizza_id" type="integer" column="pizza_id">
+        <id name="pizzaId" type="integer" column="pizza_id">
             <generator strategy="IDENTITY"/>
         </id>
 
         <field name="title" column="title" type="string" length="200" nullable="false" />
         <field name="subtitle" column="subtitle" type="string" length="200" nullable="false" />
         <field name="price" column="price" type="integer" length="200" nullable="false" />
-        <field name="last_price" column="last_price" type="integer" length="200" nullable="true" />
-        <field name="pizza_img_path" column="pizza_img_path" type="string" length="200" nullable="true" />
+        <field name="lastPrice" column="last_price" type="integer" length="200" nullable="true" />
+        <field name="pizzaImgPath" column="pizza_img_path" type="string" length="200" nullable="true" />
 
     </entity>
 

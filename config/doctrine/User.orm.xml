@@ -6,15 +6,15 @@
 
     <entity name="App\Entity\User" table="user">
 
-        <id name="user_id" type="integer" column="user_id">
+        <id name="userId" type="integer" column="user_id">
             <generator strategy="IDENTITY"/>
         </id>
 
-        <field name="first_name" column="first_name" type="string" length="200" nullable="false" />
-        <field name="second_name" column="second_name" type="string" length="200" nullable="false" />
+        <field name="firstName" column="first_name" type="string" length="200" nullable="false" />
+        <field name="secondName" column="second_name" type="string" length="200" nullable="false" />
         <field name="email" column="email" type="string" length="200" nullable="false" />
         <field name="phone" column="phone" type="string" length="20" nullable="true" />
-        <field name="avatar_path" column="avatar_path" type="string" length="200" nullable="true" />
+        <field name="avatarPath" column="avatar_path" type="string" length="200" nullable="true" />
 
     </entity>
 

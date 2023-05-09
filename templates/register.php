@@ -24,7 +24,7 @@
             <input class="input__size" type="text" name="phone" required/>
             <p class="labels">Аватар</p>
             <input type="file" name="avatar_path" accept="image/jpeg, image/png"/>
-            <input class="submit" type="submit" value="Продолжить">
+            <input class="submit" type="submit" value="Зарегистрироваться">
         </form>
     </div>  
 </body>
