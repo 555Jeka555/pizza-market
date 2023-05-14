@@ -6,7 +6,7 @@
 .body__center {
     display: flex;
     justify-content: center;
-    margin-top: 85px;
+    margin-top: 10vh;
 }
 
 .main-form {

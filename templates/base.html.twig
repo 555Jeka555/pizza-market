@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    {% block head %}
+        <head>
+            <title>{% block title %}Pizza-market{% endblock %}</title>
+            {% block stylesheets  %}
+                <link href="https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap" rel="stylesheet">   
+                <link rel="stylesheet" href="/css/name.css">
+                <meta charset="utf-8">
+            {% endblock %}
+        </head>
+    {% endblock %}
+    <body class="main__display">
+    <header class="header__background"> 
+        {% block header %}
+            <div class="title">
+                <img class="icon__size" src="/uploads/images/pizza.png" alt="Pizza-market">
+                <h1 class="title-main__font" >PIZZA MARKET</h1>
+            </div>
+        {% endblock %}
+    </header>
+    {% block content %}
+    {% endblock %}
+    <footer class="footer__background">
+        <p class="title-main__font" >PIZZA MARKET</p>
+        <p class="footer__copyrite">© CopyRight 555Jeka555 2023</p>
+    </footer>     
+    </body>
+</html>
