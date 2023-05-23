@@ -7,6 +7,8 @@ use App\Entity\User;
 use App\Model\Upload;
 use App\Repository\PizzaRepository;
 use App\Repository\UserRepository;
+use App\Service\PizzaService;
+use App\Service\UserService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
@@ -14,25 +16,29 @@ use Twig\Loader\FilesystemLoader;
 
 class StorefrontController extends AbstractController
 {
-    private PizzaRepository $pizzaRepository;
-    private UserRepository $userRepository;
     private Environment $twig;
+    private UserService $userService;
+    private PizzaService $pizzaService;
 
-    public function __construct(PizzaRepository $pizzaRepository, UserRepository $userRepository)
+    public function __construct(PizzaService $pizzaService, UserService $userService)
     {
-        $this->userRepository = $userRepository;
-        $this->pizzaRepository = $pizzaRepository;
+        $this->userService = $userService;
+        $this->pizzaService = $pizzaService;
         $this->twig = new Environment(new FilesystemLoader("../templates"));
     }
 
     public function index(int $userId): Response
     {
-        $user = $this->userRepository->findById($userId);
+        session_start();
+        if (!isset($_SESSION['email'])) {
+            return $this->redirectToRoute("show_login");
+        }
+        
+        $user = $this->userService->getUser($userId);
         if (!$user) {
             throw $this->createNotFoundException();
         }
-
-        $pizzas = $this->pizzaRepository->listAll();
+        $pizzas = $this->pizzaService->listPizzas();
 
         $contents = $this->twig->render("katalog.html.twig", [
             "title" => "Pizza-market",
@@ -42,5 +48,4 @@ class StorefrontController extends AbstractController
 
         return new Response($contents);
     }
-
 }

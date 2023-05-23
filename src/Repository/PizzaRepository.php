@@ -19,9 +19,20 @@ class PizzaRepository
         $this->repository = $entityManager->getRepository(Pizza::class);
     }
 
-    public function findById(int $id): ?Pizza 
+    public function findById(int $id): ?Pizza
     {
-        return $this->repository->findOneBy(["pizza_id" => (string) $id]);
+        $pizza = $this->repository->findOneBy(["pizzaId" => (string) $id]);
+        if ($pizza !== null) 
+        {
+            return new Pizza(
+                $pizza->getPizzaId(),
+                $pizza->getTitle(),
+                $pizza->getSubTitle(),
+                $pizza->getPrice(),
+                $pizza->getLastPrice(),
+                $pizza->getPizzaImgPath()
+            );
+        }
     }
 
     public function store(Pizza $pizza): int

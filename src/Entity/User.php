@@ -5,13 +5,13 @@ namespace App\Entity;
 
 class User 
 {
-
     public function __construct(
         private ?int $userId,
         private string $firstName, 
         private string $secondName,
         private string $email, 
         private string|null $phone, 
+        private string $password,
         private string|null $avatarPath)
     {}
 
@@ -43,5 +43,10 @@ class User
    public function getAvatarPath(): string|null
    {
        return $this->avatarPath;
+   }
+
+   public function getPassword(): string
+   {
+       return $this->password;
    }
 }

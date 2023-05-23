@@ -13,6 +13,7 @@
         <field name="firstName" column="first_name" type="string" length="200" nullable="false" />
         <field name="secondName" column="second_name" type="string" length="200" nullable="false" />
         <field name="email" column="email" type="string" length="200" nullable="false" />
+        <field name="password" column="user_password" type="string" length="200" nullable="false" />
         <field name="phone" column="phone" type="string" length="20" nullable="true" />
         <field name="avatarPath" column="avatar_path" type="string" length="200" nullable="true" />
 

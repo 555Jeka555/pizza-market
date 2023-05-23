@@ -1,20 +1,19 @@
 <?php
 
 declare(strict_types=1);
-namespace App\Model;
+namespace App\Service;
 
-class Upload {
-
+class ImageService implements ImageServiceInterface
+{
     private const UPLOADS_PATH = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "public" . DIRECTORY_SEPARATOR . "uploads" . DIRECTORY_SEPARATOR . "avatars";
-
     private const ALLOWED_MIME_TYPES_MAP = [
         "image/jpeg" => ".jpg",
         "image/png" => ".png",
         "image/webp" => ".webp",
     ];
 
-    public function __construct(){
-    }
+    public function __construct()
+    {}
 
     public function moveImageToUploads(array $fileInfo): string
     {
@@ -22,7 +21,7 @@ class Upload {
         $srcPath = $fileInfo["tmp_name"];
         $fileType = mime_content_type($srcPath);
         
-        $imageExt = Upload::ALLOWED_MIME_TYPES_MAP[$fileType] ?? null;
+        $imageExt = self::ALLOWED_MIME_TYPES_MAP[$fileType] ?? null;
     
         if (!$imageExt) 
         {
@@ -36,9 +35,9 @@ class Upload {
 
     public function getUploadPath(string $fileName): string
     {
-        $uploadsPath = realpath(Upload::UPLOADS_PATH);
+        $uploadsPath = realpath(self::UPLOADS_PATH);
         if (!$uploadsPath || !is_dir($uploadsPath)) {
-            throw new \RuntimeException('Invalid uploads path: ' . Upload::UPLOADS_PATH);
+            throw new \RuntimeException('Invalid uploads path: ' . self::UPLOADS_PATH);
         }
     
         return $uploadsPath . DIRECTORY_SEPARATOR . $fileName;
@@ -60,5 +59,4 @@ class Upload {
 
         return $destFileName;
     }
-
 }
