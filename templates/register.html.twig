@@ -1,0 +1,32 @@
+{% extends "base-form.html.twig" %}
+{% block head %}
+    {% block stylesheets  %}
+        {{ parent() }}
+    {% endblock %}
+    <title>Register</title>
+{% endblock %}
+{% block content %}
+    <h2 class="subtitle">Регистрация</h2>
+    <form class="form-register" enctype="multipart/form-data" action="/user/register" method="POST">
+        <p id="secondName" class="labels">Фамилия</p>
+        <input class="input__size" type="text" name="second_name" required/>
+        <p id="firstName" class="labels">Имя</p>
+        <input class="input__size" type="text" name="first_name" required/>
+        <p id="email" class="labels">Email</p>
+        <input class="input__size" type="text" name="email" required/>
+        <p id="phone" class="labels">Телефон</p>
+        <input class="input__size" type="text" name="phone" required/>
+        <p id="password" class="labels">Пароль</p>
+        <input class="input__size" type="password" name="password" required/>
+        <p id="avatarImg" class="labels">Аватар</p>
+        <input type="file" name="avatar_path" accept="image/jpeg, image/png"/>
+        <div class="block__submit">
+            <button class="submit">
+                <a href="/login">
+                    Вход
+                </a>
+            </button>
+            <input class="submit" type="submit" value="Зарегистрироваться">
+        </div>
+    </form>
+{% endblock %}  

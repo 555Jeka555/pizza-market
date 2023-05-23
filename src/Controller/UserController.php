@@ -1,79 +1,91 @@
 <?php
 
 declare(strict_types=1);
-
 namespace App\Controller;
 
-use App\Database\ConnectionProvider;
-use App\Database\UserTable;
-use App\Model\User;
-use App\Model\Upload;
+use App\Service\ImageService;
+use App\Service\UserService;
+use App\Service\PasswordHasher;
 use App\View\PhpTemplateEngine;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
 
 class UserController extends AbstractController
 {
-    // private const HTTP_STATUS_303_SEE_OTHER = 303;
-    private UserTable $userTable;
-    private Upload $upload;
+    private Environment $twig;
+    private ImageService $imageService;
+    private UserService $userService;
+    private PasswordHasher $passwordHasher;
 
-    public function __construct()
+    public function __construct(UserService $userService, ImageService $imageService, PasswordHasher $passwordHasher)
     {
-        $connection = ConnectionProvider::connectDatabase();
-        $this->userTable = new UserTable($connection);
-        $this->upload = new Upload();
+        $this->passwordHasher = $passwordHasher;
+        $this->imageService = $imageService;
+        $this->userService = $userService;
+        $this->twig = new Environment(new FilesystemLoader("../templates"));
     }
 
     public function index(): Response
     {
-        $contents = PhpTemplateEngine::render("register.php");
+        $contents = $this->twig->render("register.html.twig");
         return new Response($contents);
+    }
+
+    public function showLogin(): Response
+    {
+        $contents = $this->twig->render("login.html.twig");
+        return new Response($contents);
+    }
+
+    public function loginUser(Request $request): Response
+    {
+        $userEmail = $request->get("email");
+        $userPassword = $request->get("password");
+        $user = $this->userService->getUserByEmail($userEmail);
+
+        if ($user === null)
+        {
+            return $this->redirectToRoute("show_login", [], Response::HTTP_SEE_OTHER);
+        }
+
+        if (!$this->passwordHasher->verify($user->getPassword(), $userPassword))
+        {
+            return $this->redirectToRoute("show_login", [], Response::HTTP_SEE_OTHER);
+        }
+        session_start();
+        $_SESSION["email"] = $userEmail;
+        return $this->redirectToRoute(
+            "show_katalog",
+            ["userId" => $user->getUserId()],
+            Response::HTTP_SEE_OTHER
+        );
     }
 
     public function registerUser(Request $request): Response
     {
         $illustrationPath = null;
-        if ($_FILES["avatar_path"] !== null)
+        if ($_FILES["avatar_path"] !== null && $_FILES["avatar_path"]["name"] !== "")
         {
-            $illustrationPath = $this->upload->moveImageToUploads($_FILES["avatar_path"]);
+            $illustrationPath = $this->imageService->moveImageToUploads($_FILES["avatar_path"]);
         }
 
         if (!$this->validForm($request))
         {
-            $contents = PhpTemplateEngine::render("register.php");
+            $contents = PhpTemplateEngine::render("register.html.twig");
             return new Response($contents);
         }
+    
+        $userId = $this->userService->saveUser($request, $illustrationPath);
         
-        $user = new User(
-            null, $request->get("first_name"), $request->get("second_name"),
-            $request->get("email"), (int)$request->get("phone"), $illustrationPath
-        );
-
-        $userId = $this->userTable->saveUser($user);
-        
+        $_SESSION["email"] = $request->get("email");
         return $this->redirectToRoute(
             "show_katalog",
             ["userId" => $userId],
             Response::HTTP_SEE_OTHER
         );
-    }
-
-    public function viewKatalog(int $userId): Response
-    {
-        $user = $this->userTable->findUser($userId);
-        if (!$user) {
-            throw $this->createNotFoundException();
-        }
-
-        $storefrontController = new StorefrontController();
-        
-        // $contents = PhpTemplateEngine::render("katalog.php", [
-        //     "user" => $user
-        // ]);
-        // return new Response($contents);
-        return $storefrontController->index($user);
     }
 
     private function validForm(Request $request): bool

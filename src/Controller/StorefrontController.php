@@ -1,41 +1,51 @@
 <?php
 
 declare(strict_types=1);
-
 namespace App\Controller;
 
-use App\Database\UserTable;
-use App\Database\ConnectionProvider;
-use App\Model\User;
-use App\Model\Pizza;
+use App\Entity\User;
 use App\Model\Upload;
-use App\View\PhpTemplateEngine;
+use App\Repository\PizzaRepository;
+use App\Repository\UserRepository;
+use App\Service\PizzaService;
+use App\Service\UserService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
 
 class StorefrontController extends AbstractController
 {
-    private UserTable $userTable;
-    private Upload $upload;
+    private Environment $twig;
+    private UserService $userService;
+    private PizzaService $pizzaService;
 
-    public function __construct()
+    public function __construct(PizzaService $pizzaService, UserService $userService)
     {
-        $connection = ConnectionProvider::connectDatabase();
-        $this->userTable = new UserTable($connection);
-        $this->upload = new Upload();
+        $this->userService = $userService;
+        $this->pizzaService = $pizzaService;
+        $this->twig = new Environment(new FilesystemLoader("../templates"));
     }
 
-    public function index(User $user): Response
+    public function index(int $userId): Response
     {
-        $pizzas = $this->userTable->getAllPizzas();
+        session_start();
+        if (!isset($_SESSION['email'])) {
+            return $this->redirectToRoute("show_login");
+        }
+        
+        $user = $this->userService->getUser($userId);
+        if (!$user) {
+            throw $this->createNotFoundException();
+        }
+        $pizzas = $this->pizzaService->listPizzas();
 
-        $contents = PhpTemplateEngine::render("katalog.php", [
+        $contents = $this->twig->render("katalog.html.twig", [
+            "title" => "Pizza-market",
             "user" => $user,
             "pizzas" => $pizzas
         ]);
 
         return new Response($contents);
     }
-
 }
