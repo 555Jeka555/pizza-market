@@ -21,7 +21,7 @@
     </div>
 {% endblock %}
 {% block content %}
-    <main class="main__display">
+    <main class="main__katalog_display">
         <h2 class="subtitle">Ассортимент</h2>
         <div class="assortiment">
             {% for pizza in pizzas %}
@@ -38,7 +38,7 @@
                                 <p class="card__last-price">{{ pizza.getLastPrice() ~ " ₽" }}</p>
                             {% endif %}
                         </div>
-                        <button class="card__buy">Купить</button>
+                        <a class="card__buy" href="/order/{{ pizza.getPizzaId() }}">Купить</a>
                     </div>
                 </div>
             {% endfor %}

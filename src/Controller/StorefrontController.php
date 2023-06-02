@@ -3,10 +3,6 @@
 declare(strict_types=1);
 namespace App\Controller;
 
-use App\Entity\User;
-use App\Model\Upload;
-use App\Repository\PizzaRepository;
-use App\Repository\UserRepository;
 use App\Service\PizzaService;
 use App\Service\UserService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -35,7 +31,8 @@ class StorefrontController extends AbstractController
         }
         
         $user = $this->userService->getUser($userId);
-        if (!$user) {
+        if (!$user) 
+        {
             throw $this->createNotFoundException();
         }
         $pizzas = $this->pizzaService->listPizzas();

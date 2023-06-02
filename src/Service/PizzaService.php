@@ -21,9 +21,21 @@ class PizzaService implements PizzaServiceInterface {
         return 0;
     }
    
-    public function getPizza(int $userId): ?PizzaData
+    public function getPizza(int $pizzaId): ?PizzaData
     {
-        return null;
+        $pizza = $this->pizzaRepository->findById($pizzaId);
+        if ($pizza === null) 
+        {
+            return null;
+        }
+        return new PizzaData (
+            $pizza->getPizzaId(),
+            $pizza->getTitle(),
+            $pizza->getSubTitle(),
+            $pizza->getPrice(),
+            $pizza->getLastPrice(),
+            $pizza->getPizzaImgPath(),
+        );
     }
 
     public function deletePizza(int $userId): void

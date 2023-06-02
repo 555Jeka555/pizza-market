@@ -21,3 +21,13 @@ show_katalog:
     path: /user/{userId}
     methods: GET
     controller: App\Controller\StorefrontController::index
+
+order:
+    path: /order/{pizzaId}
+    methods: GET
+    controller: App\Controller\OrderController::index
+
+make_order:
+    path: /order/make
+    methods: POST
+    controller: App\Controller\OrderController::makeOrder

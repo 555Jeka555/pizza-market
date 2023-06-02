@@ -20,14 +20,14 @@ a {
     background: rgba(255, 232, 152, 0.5);
 }
 
-.title {
+.title-form {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 15px;
 }
 
-.subtitle {
+.subtitle-form {
     text-align: center;
     font-family: 'Oxygen';
     font-style: normal;
