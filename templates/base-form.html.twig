@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    {% block head %}
+        <head>
+            {% block stylesheets  %}
+                <link href="https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap" rel="stylesheet">   
+                <link rel="stylesheet" href="/css/name.css">
+                <link rel="stylesheet" href="/css/register.css">
+                <meta charset="utf-8">
+            {% endblock %}
+        </head>
+    {% endblock %}
+    <body class="body__center">
+        <div class="main-form">
+            <div class="title-form">
+                <img src="/uploads/images/pizza.png" class="icon__size" alt="Pizza-market">
+                <h1 class="title-main__font" >PIZZA MARKET</h1>
+            </div>
+            {% block content %}
+            {% endblock %}   
+        </div>
+    </body>
+</html>

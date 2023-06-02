@@ -1,0 +1,148 @@
+.main__order_display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.assortiment {
+    display: flex;
+    flex-direction: row;
+    gap: 200px;
+    /* align-items: center; */
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-width: 320px;
+    max-height: 625px;
+    background: #FFFFFF;
+    padding: 0 18px 0 18px;
+}
+
+.card__img {
+    width: 315px;
+    height: 315px;
+}
+
+.card__title {
+    margin-top: 12px;
+    font-family: 'Oxygen';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    color: #000000;
+}
+
+.card__subtitle {
+    margin-top: 8px;
+    font-family: 'Oxygen';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 25px;
+    color: #626262;
+}
+
+.card__prices {
+    display: flex;
+}
+
+.card__order {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 50px;
+    margin-bottom: 10px;
+}
+
+.card__price {
+    font-family: 'Oxygen';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    color: #ED2061;
+}
+
+.card__last-price {
+    padding-left: 10px;
+    font-family: 'Oxygen';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    text-decoration-line: line-through;
+    color: #626262;
+}
+
+.main-form {
+    max-width: 408px;
+    background: rgba(255, 232, 152, 0.5);
+}
+
+.input__size {
+    width: 370px;
+    height: 34px;
+    background: #FFFFFF;
+    border-radius: 15px;
+    font-family: 'Oxygen';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 30px;
+    color: #000000;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.labels {
+    margin: 15px 0px 5px 8px;
+    text-align: left;
+    font-family: 'Oxygen';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    color: #ED2061;
+    padding-left: 20px;
+}
+
+.subtitle-form {
+    text-align: center;
+    font-family: 'Oxygen';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    color: #000000;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    margin-top: 15px;
+    padding: 20px;
+}
+
+.block__submit {
+    display: flex;
+    justify-content: center;
+    margin: 25px 0px 25px 0px;
+    gap: 10px;
+}
+
+.submit {
+    box-sizing: border-box;
+    padding: 5px;
+    max-width: 205px;
+    height: 50px;
+    border: 3px solid #000000;
+    background-color: rgba(255, 255, 255, 0);
+    font-family: 'Oxygen';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    color: #000000;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.submit:hover {
+    background-color: rgba(255, 255, 255, 100);
+    color: #ED2061;
+    border: 0px;    
+}

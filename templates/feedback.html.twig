@@ -1,0 +1,27 @@
+{% extends "base.html.twig" %}
+{% block head %}
+    {% block stylesheets  %}
+        {{ parent() }}
+        <link rel="stylesheet" href="/css/order.css">
+    {% endblock %}
+    <title>{% block title %}{{title}}{% endblock %}</title>
+{% endblock %}
+{% block header %}
+    {{ parent() }}
+    <div class="user">
+        <div class="user__naming">
+            <p class="user__naming_overflow">{{ user.getSecondName() ~ " " ~ user.getFirstName() }}</p>
+            <p class="user__naming_overflow">{{ user.getEmail() }}</p>
+        </div>
+        {% if user.getAvatarPath() is null %}
+            <img class="user__avatar_size" src="/uploads/images/camera.png" alt="camera">
+        {% else %}
+            <img class="user__avatar_size" src="/uploads/avatars/{{ user.getAvatarPath() }}" alt="{{ user.getAvatarPath() }}">
+        {% endif %}
+    </div>
+{% endblock %}
+{% block content %}
+    <main class="main__order_display">
+        <h2 class="subtitle">Спасибо за заказ</h2>
+    </main>
+{% endblock %}

@@ -1,69 +1,7 @@
-* {
-    margin: 0;
-    padding: 0;
-}
-
-.header__background {
-    max-height: 205px;
-    background: #FFE898;
-    display: flex;
-    justify-content: space-between;
-}
-
-.title {
-    display: flex;
-    align-items: center;
-    padding: 20px 0 20px 38px;
-}
-
-.user {
-    display: flex;
-    align-items: center;
-    padding-right: 30px;
-    gap: 10px;
-}
-
-.user__naming {
-    display: flex;
-    flex-direction: column;
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 24px;
-    line-height: 29px;
-    color: #000000;
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
-
-.user__naming_overflow {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 200px
-}
-
-.user__avatar_size{
-    width: 76px;
-    height: 76px;
-    background: #FFFFFF;
-    border-radius: 90px;
-}
-
-.main__display {
+.main__katalog_display {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-.subtitle {
-    font-family: 'Oxygen';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 36px;
-    line-height: 61px;
-    color: #000000;
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    padding: 50px 0 50px 0;
 }
 
 .assortiment {
@@ -140,6 +78,9 @@
 }
 
 .card__buy {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 90px;
     height: 44px;
     text-align: center;
@@ -156,23 +97,4 @@
     background-color: rgba(255, 255, 255, 100);
     color: #ED2061;
     border: 3px solid #ED2061;
-}
-
-.footer__background {
-    padding: 0 37px 0 37px;
-    margin-top: 100px;
-    height: 100px;
-    background: #FFE898;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.footer__copyrite {
-    font-family: 'Irish Grover';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 32px;
-    color: #000000;
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
