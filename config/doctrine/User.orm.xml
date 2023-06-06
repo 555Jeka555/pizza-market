@@ -16,6 +16,7 @@
         <field name="password" column="user_password" type="string" length="200" nullable="false" />
         <field name="phone" column="phone" type="string" length="20" nullable="true" />
         <field name="avatarPath" column="avatar_path" type="string" length="200" nullable="true" />
+        <field name="role" column="user_role" type="integer" length="1" nullable="false" />
 
     </entity>
 

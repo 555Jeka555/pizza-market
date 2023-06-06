@@ -74,7 +74,7 @@ class UserController extends AbstractController
 
         if (!$this->validForm($request))
         {
-            $contents = PhpTemplateEngine::render("register.html.twig");
+            $contents = $this->twig->render("register.html.twig");
             return new Response($contents);
         }
     

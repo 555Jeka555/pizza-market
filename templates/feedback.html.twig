@@ -23,5 +23,7 @@
 {% block content %}
     <main class="main__order_display">
         <h2 class="subtitle">Спасибо за заказ</h2>
+        <p class="subtitle">Заказ №{{orderId}}</p>
+        <a class="submit" href="/user/{{ user.getUserId() }}">На главную</a>
     </main>
 {% endblock %}

@@ -36,20 +36,21 @@
                     </div>
                 </div>
             </div>
-            <form class="main-form" action"/order/make" method="POST">
+            <form class="main-form" action="/order/make" method="POST">
                 <h3 id="{{ pizza.getPizzaId() }}" class="subtitle-form">Информация о покупке</h3>
-                <p id="adress" class="labels">Адресс</p>
-                <input class="input__size" type="text" name="adress" required/>
-                <p id="number_card" class="labels">Номер карты</p>
-                <input class="input__size" type="text" name="number_card" required/>
-                <p id="number_back_card" class="labels">Номер на обороте</p>
-                <input class="input__size" type="text" name="number_back_card" required/>
-                <p id="date_card" class="labels">Дата карты</p>
-                <input class="input__size" type="text" name="date_card" required/>
+                <p class="labels">Адресс</p>
+                <input id="adress" class="input__size" type="text" name="adress" required/>
+                <p class="labels">Номер карты</p>
+                <input id="number_card" class="input__size" type="text" name="number_card" required/>
+                <p class="labels">Номер на обороте</p>
+                <input id="number_back_card" class="input__size" type="text" name="number_back_card" required/>
+                <p class="labels">Дата карты</p>
+                <input id="date_card" class="input__size" type="text" name="date_card" required/>
                 <div class="block__submit">
                     <input class="submit" type="submit" value="Заказать">
                 </div>
             </form>
         </div>
     </main>
+    {# <script src="/js/order.js"></script> #}
 {% endblock %}

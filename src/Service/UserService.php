@@ -30,7 +30,8 @@ class UserService implements UserServiceInterface {
             $request->get("email"),
             $request->get("phone"),
             $this->passwordHasher->hash($request->get("password")), 
-            $illustrationPath
+            $illustrationPath,
+            0
         );
         return $this->userRepository->store($user);
     }
@@ -49,7 +50,8 @@ class UserService implements UserServiceInterface {
             $user->getEmail(),
             $user->getPassword(),
             $user->getPhone(),
-            $user->getAvatarPath()
+            $user->getAvatarPath(),
+            $user->getRole(),
         );
     }
 
@@ -67,7 +69,8 @@ class UserService implements UserServiceInterface {
             $user->getEmail(),
             $user->getPassword(),
             $user->getPhone(),
-            $user->getAvatarPath()
+            $user->getAvatarPath(),
+            $user->getRole(),
         );
     }
 
@@ -94,6 +97,7 @@ class UserService implements UserServiceInterface {
                 $user->getPassword(),
                 $user->getPhone(),
                 $user->getAvatarPath(),
+                $user->getRole(),
             );
         }
 

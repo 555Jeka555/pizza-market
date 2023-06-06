@@ -7,7 +7,8 @@ use App\Repository\PizzaRepository;
 use App\Service\Data\PizzaData;
 use Symfony\Component\HttpFoundation\Request;
 
-class PizzaService implements PizzaServiceInterface {
+class PizzaService implements PizzaServiceInterface 
+{
 
     private PizzaRepository $pizzaRepository;
 

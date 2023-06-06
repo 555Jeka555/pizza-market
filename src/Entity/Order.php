@@ -21,6 +21,16 @@ class Order
         return $this->orderId;
     }
 
+    public function getUserId(): ?int
+    {
+        return $this->userId;
+    }
+
+    public function getPizzaId(): ?int
+    {
+        return $this->pizzaId;
+    }
+
     public function getAdress(): string
     {
         return $this->adress;

@@ -12,7 +12,8 @@ class UserData
         private string $email,
         private string $password,
         private string|null $phone, 
-        private string|null $avatarPath)
+        private string|null $avatarPath,
+        private int $role)
     {}
 
     public function getUserId(): ?int
@@ -49,4 +50,9 @@ class UserData
     {
         return $this->password;
     }
+
+    public function getRole(): int
+   {
+       return $this->role;
+   }
 }
