@@ -31,21 +31,23 @@
                         <p class="card__title">{{ pizza.getTitle() }}</p>
                         <p class="card__subtitle">{{ pizza.getSubTitle() }}</p>
                     </div>
-                    <div class="card__order">
-                        <div class="card__prices">
-                            <p class="card__price">{{ pizza.getPrice() ~ " ₽" }}</p>
-                            {% if pizza.getLastPrice() is not null %}
-                                <p class="card__last-price">{{ pizza.getLastPrice() ~ " ₽" }}</p>
-                            {% endif %}
+                    <div>
+                        <div class="card__order">
+                            <div class="card__prices">
+                                <p class="card__price">{{ pizza.getPrice() ~ " ₽" }}</p>
+                                {% if pizza.getLastPrice() is not null %}
+                                    <p class="card__last-price">{{ pizza.getLastPrice() ~ " ₽" }}</p>
+                                {% endif %}
+                            </div>
+                            <a class="card__buy" href="/order/{{ pizza.getPizzaId() }}">Купить</a>
                         </div>
-                        <a class="card__buy" href="/order/{{ pizza.getPizzaId() }}">Купить</a>
+                        {% if user.getRole() == 1 %}
+                            <form class="form__del" action="/pizza/del" method="POST">
+                                <input type="hidden" name="pizza_id" value="{{ pizza.getPizzaId() }}">
+                                <input class="submit" type="submit" value="Удалить">
+                            </form>
+                        {% endif %}
                     </div>
-                    {% if user.getRole() == 1 %}
-                        <form action="/pizza/del" method="POST">
-                            <input type="hidden" name="pizza_id" value="{{ pizza.getPizzaId() }}">
-                            <input class="submit" type="submit" value="Удалить">
-                        </form>
-                    {% endif %}
                 </div>
             {% endfor %}
         </div>
