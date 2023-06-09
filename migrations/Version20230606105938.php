@@ -25,7 +25,7 @@ final class Version20230606105938 extends AbstractMigration
                 user_id INT(200) NOT NULL,
                 pizza_id INT(200) NOT NULL,
                 adress VARCHAR(200) NOT NULL,
-                number_card INT(200) NOT NULL,
+                number_card DECIMAL(200) NOT NULL,
                 number_back_card INT(200) NOT NULL,
                 date_card INT(200) NOT NULL,
                 order_date DATETIME NOT NULL,

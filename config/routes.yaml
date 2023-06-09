@@ -31,3 +31,8 @@ make_order:
     path: /order/make
     methods: POST
     controller: App\Controller\OrderController::makeOrder
+
+add_pizza:
+    path: /pizza/publish
+    methods: POST
+    controller: App\Controller\StorefrontController::addPizza

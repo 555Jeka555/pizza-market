@@ -69,7 +69,7 @@ class UserController extends AbstractController
         $illustrationPath = null;
         if ($_FILES["avatar_path"] !== null && $_FILES["avatar_path"]["name"] !== "")
         {
-            $illustrationPath = $this->imageService->moveImageToUploads($_FILES["avatar_path"]);
+            $illustrationPath = $this->imageService->moveImageToUploads($_FILES["avatar_path"], "avatars");
         }
 
         if (!$this->validForm($request))

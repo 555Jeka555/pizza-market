@@ -5,7 +5,7 @@ namespace App\Service;
 
 class ImageService implements ImageServiceInterface
 {
-    private const UPLOADS_PATH = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "public" . DIRECTORY_SEPARATOR . "uploads" . DIRECTORY_SEPARATOR . "avatars";
+    private static $UPLOADS_PATH = __DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "public" . DIRECTORY_SEPARATOR . "uploads" . DIRECTORY_SEPARATOR;
     private const ALLOWED_MIME_TYPES_MAP = [
         "image/jpeg" => ".jpg",
         "image/png" => ".png",
@@ -15,7 +15,7 @@ class ImageService implements ImageServiceInterface
     public function __construct()
     {}
 
-    public function moveImageToUploads(array $fileInfo): string
+    public function moveImageToUploads(array $fileInfo, string $folder): string
     {
         $fileName = $fileInfo["name"];
         $srcPath = $fileInfo["tmp_name"];
@@ -30,14 +30,17 @@ class ImageService implements ImageServiceInterface
     
         $destFileName = uniqid('image', true) . $imageExt;
     
-        return $this->moveFileToUploads($fileInfo, $destFileName);
+        return $this->moveFileToUploads($fileInfo, $destFileName, $folder);
     }
 
-    public function getUploadPath(string $fileName): string
+    public function getUploadPath(string $fileName, string $folder): string
     {
-        $uploadsPath = realpath(self::UPLOADS_PATH);
+        if (stripos(self::$UPLOADS_PATH, $folder) === false) {
+            self::$UPLOADS_PATH = self::$UPLOADS_PATH . $folder;
+        }
+        $uploadsPath = realpath(self::$UPLOADS_PATH);
         if (!$uploadsPath || !is_dir($uploadsPath)) {
-            throw new \RuntimeException('Invalid uploads path: ' . self::UPLOADS_PATH);
+            throw new \RuntimeException('Invalid uploads path: ' . self::$UPLOADS_PATH);
         }
     
         return $uploadsPath . DIRECTORY_SEPARATOR . $fileName;
@@ -45,13 +48,13 @@ class ImageService implements ImageServiceInterface
 
     public function getUploadUrlPath(string $fileName): string
     {
-        return "/uploads/avatars/$fileName";
+        return self::$UPLOADS_PATH . DIRECTORY_SEPARATOR . $fileName;
     }
 
-    public function moveFileToUploads(array $fileInfo, string $destFileName): string
+    public function moveFileToUploads(array $fileInfo, string $destFileName, string $folder): string
     {
         $fileName = $fileInfo['name'];
-        $destPath = $this->getUploadPath($destFileName);
+        $destPath = $this->getUploadPath($destFileName, $folder);
         $srcPath = $fileInfo['tmp_name'];
         if (!@move_uploaded_file($srcPath, $destPath)) {
             throw new \RuntimeException("Failed to uploads file $fileName");

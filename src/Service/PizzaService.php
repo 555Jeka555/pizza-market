@@ -3,6 +3,7 @@
 declare(strict_types=1);
 namespace App\Service;
 
+use App\Entity\Pizza;
 use App\Repository\PizzaRepository;
 use App\Service\Data\PizzaData;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,9 +18,17 @@ class PizzaService implements PizzaServiceInterface
         $this->pizzaRepository = $pizzaRepository;
     }
 
-    public function savePizza(Request $request, string $illustrationPath): int
+    public function savePizza(Request $request, string $imagePath): int
     {
-        return 0;
+        $pizza = new Pizza(
+            null,
+            $request->get("title"), 
+            $request->get("subtitle"),
+            (int)$request->get("price"),
+            (int)$request->get("last_price"),
+            $imagePath,
+        );
+        return $this->pizzaRepository->store($pizza);
     }
    
     public function getPizza(int $pizzaId): ?PizzaData

@@ -96,12 +96,13 @@ class OrderController extends AbstractController
             return false;
         }
 
-        if (!((int)$request->get("number_card") == 16) || !((int)$request->get("number_back_card") == 3)  || !((int)$request->get("date_card") == 4))
+        if (!(strlen($request->get("number_card")) == 16) 
+            || !(strlen($request->get("number_back_card")) == 3) 
+            || !(strlen($request->get("date_card")) == 4))
         {
             return false;
         }
 
         return true;
     }
-
 }

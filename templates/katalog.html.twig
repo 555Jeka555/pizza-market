@@ -39,9 +39,30 @@
                             {% endif %}
                         </div>
                         <a class="card__buy" href="/order/{{ pizza.getPizzaId() }}">Купить</a>
+                        {# <form enctype="multipart/form-data" action="/pizza/publish" method="POST">
+                            <input class="submit" type="submit" value="Добавить">
+                        </form> #}
                     </div>
                 </div>
             {% endfor %}
         </div>
+        {% if user.getRole() == 1 %}
+            <form class="main-form" enctype="multipart/form-data" action="/pizza/publish" method="POST">
+                <h3 class="subtitle-form">Добавить пиццу</h3>
+                <p class="labels">Название</p>
+                <input id="adress" class="input__size" type="text" name="title" required/>
+                <p class="labels">Описание</p>
+                <input id="number_card" class="input__size" type="text" name="subtitle" required/>
+                <p class="labels">Старая цена</p>
+                <input id="number_back_card" class="input__size" type="text" name="price" required/>
+                <p class="labels">Новая цена</p>
+                <input id="number_back_card" class="input__size" type="text" name="last_price" required/>
+                <p id="avatarImg" class="labels">Картинка</p>
+                <input type="file" name="pizza_image" accept="image/jpeg, image/png" required/>
+                <div class="block__submit">
+                    <input class="submit" type="submit" value="Добавить">
+                </div>
+            </form>
+        {% endif %}
     </main>
 {% endblock %}

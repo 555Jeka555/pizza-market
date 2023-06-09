@@ -5,11 +5,11 @@ namespace App\Service;
 
 interface ImageServiceInterface
 {
-    public function moveImageToUploads(array $fileInfo): string;
+    public function moveImageToUploads(array $fileInfo, string $folder): string;
 
-    public function getUploadPath(string $fileName): string;
+    public function getUploadPath(string $fileName, string $folder): string;
 
     public function getUploadUrlPath(string $fileName): string;
 
-    public function moveFileToUploads(array $fileInfo, string $destFileName): string;
+    public function moveFileToUploads(array $fileInfo, string $destFileName, string $folder): string;
 }
