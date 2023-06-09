@@ -39,10 +39,13 @@
                             {% endif %}
                         </div>
                         <a class="card__buy" href="/order/{{ pizza.getPizzaId() }}">Купить</a>
-                        {# <form enctype="multipart/form-data" action="/pizza/publish" method="POST">
-                            <input class="submit" type="submit" value="Добавить">
-                        </form> #}
                     </div>
+                    {% if user.getRole() == 1 %}
+                        <form action="/pizza/del" method="POST">
+                            <input type="hidden" name="pizza_id" value="{{ pizza.getPizzaId() }}">
+                            <input class="submit" type="submit" value="Удалить">
+                        </form>
+                    {% endif %}
                 </div>
             {% endfor %}
         </div>

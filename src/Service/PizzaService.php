@@ -48,8 +48,14 @@ class PizzaService implements PizzaServiceInterface
         );
     }
 
-    public function deletePizza(int $userId): void
-    {}
+    public function deletePizza(int $pizzaId): void
+    {
+        $pizza = $this->pizzaRepository->findById($pizzaId);
+        if ($pizza !== null)
+        {
+            $this->pizzaRepository->delete($pizza);
+        }
+    }
 
     public function listPizzas(): array
     {

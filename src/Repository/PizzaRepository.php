@@ -44,7 +44,7 @@ class PizzaRepository
 
     public function delete(Pizza $pizza): void
     {
-        $this->entityManeger->remove($pizza);
+        $this->entityManeger->remove($this->entityManeger->merge($pizza));
         $this->entityManeger->flush();
     }
 

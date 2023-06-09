@@ -86,6 +86,19 @@ class StorefrontController extends AbstractController
         );
     }
 
+    public function delPizza(Request $request): Response
+    {
+        session_start();
+        $userId = $this->userService->getUserByEmail($_SESSION['email'])->getUserId();
+        $this->pizzaService->deletePizza((int)$request->get("pizza_id"));
+
+        return $this->redirectToRoute(
+            "show_katalog",
+            ["userId" => $userId],
+            Response::HTTP_SEE_OTHER
+        );
+    }
+
     public function validForm(Request $request): bool
     {
         if (!is_numeric($request->get("price")) || !is_numeric($request->get("last_price")))

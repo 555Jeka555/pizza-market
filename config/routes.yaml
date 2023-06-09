@@ -36,3 +36,8 @@ add_pizza:
     path: /pizza/publish
     methods: POST
     controller: App\Controller\StorefrontController::addPizza
+
+del_pizza:
+    path: /pizza/del
+    methods: POST
+    controller: App\Controller\StorefrontController::delPizza
